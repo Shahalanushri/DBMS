@@ -21,7 +21,7 @@ desc EMPLOYEE;
 
 //b)
 //STUDENT TABLE
-
+//VERIFIED
 create table STUDENT(Roll_no int primary key,Name varchar(20) not null,Age int not null check(Age>=0 and Age<=99),Address varchar(50),Gender  varchar(10) default 'm');
 desc STUDENT;
 +---------+-------------+------+-----+---------+-------+
