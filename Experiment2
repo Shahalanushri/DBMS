@@ -1,0 +1,130 @@
+//DML COMMANDS
+//a.DML INSERT
+//1. Insert values in PERSON table
+
+mysql> desc PERSON;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| SSN      | int         | YES  | UNI | NULL    |       |
+| name     | varchar(20) | YES  |     | NULL    |       |
+| city     | varchar(20) | YES  |     | NULL    |       |
+| dob      | year        | YES  |     | NULL    |       |
+| adhar_no | int         | YES  | UNI | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> insert into PERSON values(01,'Abhi','kerala',1999,33112255);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into PERSON values(02,'Balu','calicut',2000,33112258);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into PERSON values(03,'Chandhu','palakad',2001,33412258);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into PERSON values(04,'Diya','kollam',2002,33412448);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into PERSON values(05,'Emin','Delhi',2003,203412448);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select*from PERSON;
++------+---------+---------+------+-----------+
+| SSN  | name    | city    | dob  | adhar_no  |
++------+---------+---------+------+-----------+
+|    1 | Abhi    | kerala  | 1999 |  33112255 |
+|    2 | Balu    | calicut | 2000 |  33112258 |
+|    3 | Chandhu | palakad | 2001 |  33412258 |
+|    4 | Diya    | kollam  | 2002 |  33412448 |
+|    5 | Emin    | Delhi   | 2003 | 203412448 |
++------+---------+---------+------+-----------+
+5 rows in set (0.00 sec)
+
+//2.Insert values in STUDENT table
+mysql> desc STUDENT;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| Roll_no | int         | NO   | PRI | NULL    |       |
+| Name    | varchar(20) | NO   |     | NULL    |       |
+| age     | int         | YES  |     | NULL    |       |
+| Address | varchar(50) | YES  |     | NULL    |       |
+| Gender  | varchar(10) | YES  |     | m       |       |
++---------+-------------+------+-----+---------+-------+
+5 rows in set (0.01 sec)
+mysql> insert into STUDENT values(1,'Abhi',25,'kollam','Male');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into STUDENT values(2,'Lumna',20,'othayi','Female');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into STUDENT values(3,'Hadiya',21,'Edevanna','Female');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into STUDENT values(4,'Buboo',22,'paris','Female');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into STUDENT values(5,'Gokoo',24,'Armsterdam','Male');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select*from STUDENT;
++---------+--------+------+------------+--------+
+| Roll_no | Name   | age  | Address    | Gender |
++---------+--------+------+------------+--------+
+|       1 | Abhi   |   25 | kollam     | Male   |
+|       2 | Lumna  |   20 | othayi     | Female |
+|       3 | Hadiya |   21 | Edevanna   | Female |
+|       4 | Buboo  |   22 | paris      | Female |
+|       5 | Gokoo  |   24 | Armsterdam | Male   |
++---------+--------+------+------------+--------+
+5 rows in set (0.00 sec)
+
+//3.Insert values in INVOICE database
+mysql> use INVOICE;
+Database changed
+mysql> show tables;
++-------------------+
+| Tables_in_INVOICE |
++-------------------+
+| Customer          |
+| Invoice_item      |
+| Invoice_master    |
+| Product           |
++-------------------+
+4 rows in set (0.00 sec)
+
+mysql> desc Customer;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| id      | int         | NO   | PRI | NULL    |       |
+| name    | varchar(20) | YES  |     | NULL    |       |
+| address | varchar(50) | YES  |     | NULL    |       |
+| city    | varchar(40) | YES  |     | NULL    |       |
+| ph_no   | int         | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+mysql> insert into Customer values(10001,'Ammu','abc','calicut',99667789);
+Query OK, 1 row affected (0.00 sec)
+mysql> insert into Customer(id,name,address,city) values(10002,'Ashi','efg','ekm');
+Query OK, 1 row affected (0.01 sec)
+mysql> insert into Customer values(10003,'Laala','hijk','tvm',9322789);
+Query OK, 1 row affected (0.00 sec)
+mysql> insert into Customer(id,name,address,city) values(10004,'Heizy','aahh','kkd');
+Query OK, 1 row affected (0.01 sec)
+mysql> insert into Customer values(10005,'Amy','kkdh','wnd',9324489);
+Query OK, 1 row affected (0.01 sec)
+mysql> Select*from Customer;
++-------+-------+---------+---------+----------+
+| id    | name  | address | city    | ph_no    |
++-------+-------+---------+---------+----------+
+| 10001 | Ammu  | abc     | calicut | 99667789 |
+| 10002 | Ashi  | efg     | ekm     |     NULL |
+| 10003 | Laala | hijk    | tvm     |  9322789 |
+| 10004 | Heizy | aahh    | kkd     |     NULL |
+| 10005 | Amy   | kkdh    | wnd     |  9324489 |
++-------+-------+---------+---------+----------+
+5 rows in set (0.00 sec)
+
+
