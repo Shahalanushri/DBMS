@@ -1,0 +1,266 @@
+//DML UPDATE
+//1 .Update price of a  particular product
+mysql> update Product set price=220 where pid=1;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select*from Product;
++-----+--------+-------+
+| pid | pname  | price |
++-----+--------+-------+
+|   1 | pen    |   220 |
+|   2 | pencil |   133 |
+|   3 | soap   |    71 |
+|   4 | paste  |   122 |
+|   5 | brush  |    61 |
++-----+--------+-------+
+5 rows in set (0.00 sec)
+
+
+//2.update the name of city 'calicut' to 'kozhikode' in the cusomer table
+mysql> update Customer set city='kozhikode' where id=10001;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select*from Customer;
++-------+-------+---------+-----------+----------+
+| id    | name  | address | city      | ph_no    |
++-------+-------+---------+-----------+----------+
+| 10001 | Ammu  | abc     | kozhikode | 99667789 |
+| 10002 | Ashi  | efg     | ekm       |     NULL |
+| 10003 | Laala | hijk    | tvm       |  9322789 |
+| 10004 | Heizy | aahh    | kkd       |     NULL |
+| 10005 | Amy   | kkdh    | wnd       |  9324489 |
++-------+-------+---------+-----------+----------+
+5 rows in set (0.00 sec)
+
+
+
+//3.update all prices with 2% of its original price
+mysql> update Product set price=price+(price*2/100);
+Query OK, 5 rows affected (0.00 sec)
+Rows matched: 5  Changed: 5  Warnings: 0
+
+mysql> select*from Product;
++-----+--------+-------+
+| pid | pname  | price |
++-----+--------+-------+
+|   1 | pen    |   224 |
+|   2 | pencil |   136 |
+|   3 | soap   |    72 |
+|   4 | paste  |   124 |
+|   5 | brush  |    62 |
++-----+--------+-------+
+5 rows in set (0.00 sec)
+
+
+//4.change the address,city ,phone number of a particular customer
+mysql> update Customer set address='xyz',city='mpdy',ph_no=99664455 where id=10003;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select*from Customer;
++-------+-------+---------+-----------+----------+
+| id    | name  | address | city      | ph_no    |
++-------+-------+---------+-----------+----------+
+| 10001 | Ammu  | abc     | kozhikode | 99667789 |
+| 10002 | Ashi  | efg     | ekm       |     NULL |
+| 10003 | Laala | xyz     | mpdy      | 99664455 |
+| 10004 | Heizy | aahh    | kkd       |     NULL |
+| 10005 | Amy   | kkdh    | wnd       |  9324489 |
++-------+-------+---------+-----------+----------+
+5 rows in set (0.00 sec)
+
+
+//5.change quantity of purchased product of inv_id=101
+mysql> update Invoice_item set quantity=5 where inv_id=101;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select*from Invoice_item;
++--------+------+----------+
+| inv_id | pid  | quantity |
++--------+------+----------+
+|    101 |    1 |        5 |
+|    102 |    2 |        1 |
+|    103 |    4 |       15 |
+|    104 |    5 |       20 |
+|    105 |    5 |        1 |
++--------+------+----------+
+5 rows in set (0.00 sec)
+
+
+//DML DELETE
+//1.delete the record of customer id 10001.
+mysql> set foreign_key_checks=0;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> delete from Customer where id=10001;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select*from Customer;
++-------+-------+---------+------+----------+
+| id    | name  | address | city | ph_no    |
++-------+-------+---------+------+----------+
+| 10002 | Ashi  | efg     | ekm  |     NULL |
+| 10003 | Laala | xyz     | mpdy | 99664455 |
+| 10004 | Heizy | aahh    | kkd  |     NULL |
+| 10005 | Amy   | kkdh    | wnd  |  9324489 |
++-------+-------+---------+------+----------+
+4 rows in set (0.00 sec)
+
+
+//2.delete all purchase details of items its quatity<2
+mysql> select *from Invoice_item;
++--------+------+----------+
+| inv_id | pid  | quantity |
++--------+------+----------+
+|    101 |    1 |        5 |
+|    102 |    2 |        1 |
+|    103 |    4 |       15 |
+|    104 |    5 |       20 |
+|    105 |    5 |        1 |
++--------+------+----------+
+5 rows in set (0.00 sec)
+
+mysql> delete from Invoice_item where quantity<2;
+Query OK, 2 rows affected (0.01 sec)
+
+mysql> select *from Invoice_item;
++--------+------+----------+
+| inv_id | pid  | quantity |
++--------+------+----------+
+|    101 |    1 |        5 |
+|    103 |    4 |       15 |
+|    104 |    5 |       20 |
++--------+------+----------+
+3 rows in set (0.00 sec)
+
+//3.delete the purchase details of product 'pen' in the inv_id '101'
+ mysql> select *from Invoice_item;
++--------+------+----------+
+| inv_id | pid  | quantity |
++--------+------+----------+
+|    101 |    1 |        5 |
+|    103 |    4 |       15 |
+|    104 |    5 |       20 |
++--------+------+----------+
+3 rows in set (0.00 sec)
+
+mysql> select *from Product;
++-----+--------+-------+
+| pid | pname  | price |
++-----+--------+-------+
+|   1 | pen    |   224 |
+|   2 | pencil |   136 |
+|   3 | soap   |    72 |
+|   4 | paste  |   124 |
+|   5 | brush  |    62 |
++-----+--------+-------+
+5 rows in set (0.00 sec)
+
+mysql> delete from Invoice_item where inv_id=101 and pid=1;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select *from Invoice_item;
++--------+------+----------+
+| inv_id | pid  | quantity |
++--------+------+----------+
+|    103 |    4 |       15 |
+|    104 |    5 |       20 |
++--------+------+----------+
+2 rows in set (0.00 sec)
+
+
+//4.delete details of employees who does not have phone number
+mysql> set foreign_key_checks=0;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> delete from Customer where id=10002;
+Query OK, 1 row affected (0.00 sec)
+mysql> delete from Customer where id=10004;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select*from Customer;
++-------+-------+---------+------+----------+
+| id    | name  | address | city | ph_no    |
++-------+-------+---------+------+----------+
+| 10003 | Laala | xyz     | mpdy | 99664455 |
+| 10005 | Amy   | kkdh    | wnd  |  9324489 |
++-------+-------+---------+------+----------+
+2 rows in set (0.01 sec)
+
+// 5.Delete all records from student table.
+use exp;
+Database changed
+mysql> show tables;
++---------------+
+| Tables_in_exp |
++---------------+
+| EMPLOYEE1     |
+| PERSON        |
+| STUDENT       |
++---------------+
+3 rows in set (0.00 sec)
+
+mysql> select *from STUDENT;
++---------+--------+------+------------+--------+
+| Roll_no | Name   | age  | Address    | Gender |
++---------+--------+------+------------+--------+
+|       1 | Abhi   |   25 | kollam     | Male   |
+|       2 | Lumna  |   20 | othayi     | Female |
+|       3 | Hadiya |   21 | Edevanna   | Female |
+|       4 | Buboo  |   22 | paris      | Female |
+|       5 | Gokoo  |   24 | Armsterdam | Male   |
++---------+--------+------+------------+--------+
+5 rows in set (0.00 sec)
+
+mysql> delete from STUDENT;
+Query OK, 5 rows affected (0.01 sec)
+
+mysql> select *from STUDENT;
+Empty set (0.00 sec)
+
+//6.Delete invoice details of a particular customer.
+use INVOICE;
+Database changed
+mysql> select*from Customer;
++-------+-------+---------+------+----------+
+| id    | name  | address | city | ph_no    |
++-------+-------+---------+------+----------+
+| 10003 | Laala | xyz     | mpdy | 99664455 |
+| 10005 | Amy   | kkdh    | wnd  |  9324489 |
++-------+-------+---------+------+----------+
+2 rows in set (0.00 sec)
+
+mysql> delete from Customer where id=10003;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select*from Customer;
++-------+------+---------+------+---------+
+| id    | name | address | city | ph_no   |
++-------+------+---------+------+---------+
+| 10005 | Amy  | kkdh    | wnd  | 9324489 |
++-------+------+---------+------+---------+
+1 row in set (0.00 sec)
+
+//7.delete the first two records of invoiuce_item table its purchase quantity is high
+mysql> select *from Invoice_item;
++--------+------+----------+
+| inv_id | pid  | quantity |
++--------+------+----------+
+|    103 |    4 |       15 |
+|    104 |    5 |       20 |
++--------+------+----------+
+2 rows in set (0.00 sec)
+mysql> delete from Invoice_item where quantity=20;
+Query OK, 1 row affected (0.01 sec)
+mysql> select *from Invoice_item;
++--------+------+----------+
+| inv_id | pid  | quantity |
++--------+------+----------+
+|    103 |    4 |       15 |
++--------+------+----------+
+1 row in set (0.00 sec)
+
+
