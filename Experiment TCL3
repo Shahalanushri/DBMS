@@ -194,4 +194,4 @@ mysql> show grants for nushri@'localhost';
 | GRANT SELECT, INSERT, UPDATE ON `INVOICE`.`Customer` TO `nushri`@`localhost` |
 +------------------------------------------------------------------------------+
 3 rows in set (0.00 sec)
-
+//VERIFIED
