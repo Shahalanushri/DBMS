@@ -1,0 +1,197 @@
+//TCL COMMANDS
+//COMMIT
+
+mysql> create table dml(id int,name varchar(20));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> insert into dml value(1,'Ayra');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from dml;
++------+------+
+| id   | name |
++------+------+
+|    1 | Ayra |
++------+------+
+1 row in set (0.00 sec)
+mysql> commit;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from dml;
++------+------+
+| id   | name |
++------+------+
+|    1 | Ayra |
+|    2 | Ammu |
++------+------+
+2 rows in set (0.00 sec)
+
+//Rollback
+mysql> set autocommit=off;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from dml;
++------+------+
+| id   | name |
++------+------+
+|    1 | Ayra |
+|    2 | Ammu |
++------+------+
+2 rows in set (0.00 sec)
+
+mysql> delete from dml where id=2;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from dml;
++------+------+
+| id   | name |
++------+------+
+|    1 | Ayra |
++------+------+
+1 row in set (0.00 sec)
+
+mysql> rollback;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from dml;
++------+------+
+| id   | name |
++------+------+
+|    1 | Ayra |
+|    2 | Ammu |
++------+------+
+2 rows in set (0.00 sec)
+
+//SAVEPOINT
+mysql> set autocommit=off;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> insert into dml value(3,'haala');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into dml value(4,'michu');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> savepoint s1;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> insert into dml value(5,'finu');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> savepoint s2;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> insert into dml value(6,'sunu');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> savepoint s3;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select * from dml;
++------+-------+
+| id   | name  |
++------+-------+
+|    1 | Ayra  |
+|    2 | Ammu  |
+|    3 | haala |
+|    4 | michu |
+|    5 | finu  |
+|    6 | sunu  |
++------+-------+
+6 rows in set (0.00 sec)
+
+mysql> rollback to s2;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from dml;
++------+-------+
+| id   | name  |
++------+-------+
+|    1 | Ayra  |
+|    2 | Ammu  |
+|    3 | haala |
+|    4 | michu |
+|    5 | finu  |
++------+-------+
+5 rows in set (0.00 sec)
+
+
+//DCL COMMANDS
+//GRAND
+
+mysql> create user shahala@'localhost' identified by'igha';
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> create user nushri@'localhost' identified by'anghu';
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> grant select on INVOICE.Customer to shahala@'localhost';
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> show grants for shahala@'localhost';
++---------------------------------------------------------------+
+| Grants for shahala@localhost                                  |
++---------------------------------------------------------------+
+| GRANT USAGE ON *.* TO `shahala`@`localhost`                   |
+| GRANT SELECT ON `INVOICE`.`Customer` TO `shahala`@`localhost` |
++---------------------------------------------------------------+
+2 rows in set (0.00 sec)
+
+mysql> 
+
+//Q1.
+mysql> grant insert,select on  INVOICE.Customer to shahala@'localhost';
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> show grants for shahala@'localhost';
++-----------------------------------------------------------------------+
+| Grants for shahala@localhost                                          |
++-----------------------------------------------------------------------+
+| GRANT USAGE ON *.* TO `shahala`@`localhost`                           |
+| GRANT SELECT, INSERT ON `INVOICE`.`Customer` TO `shahala`@`localhost` |
++-----------------------------------------------------------------------+
+2 rows in set (0.00 sec)
+
+mysql> grant update,delete on INVOICE.* to nushri@'localhost';
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> show grants for nushri@'localhost';
++--------------------------------------------------------------------------------------+
+| Grants for nushri@localhost                                                          |
++--------------------------------------------------------------------------------------+
+| GRANT USAGE ON *.* TO `nushri`@`localhost`                                           |
+| GRANT UPDATE, DELETE ON `INVOICE`.* TO `nushri`@`localhost`                          |
+| GRANT SELECT, INSERT, UPDATE, DELETE ON `INVOICE`.`Customer` TO `nushri`@`localhost` |
++--------------------------------------------------------------------------------------+
+3 rows in set (0.00 sec)
+
+
+//REVOKE
+mysql> grant select,update on INVOICE.Customer to nushri@'localhost';
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> revoke select on INVOICE.Customer from  nushri@'localhost';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> show grants for nushri@'localhost';
++--------------------------------------------------------------+
+| Grants for nushri@localhost                                  |
++--------------------------------------------------------------+
+| GRANT USAGE ON *.* TO `nushri`@`localhost`                   |
+| GRANT UPDATE ON `INVOICE`.`Customer` TO `nushri`@`localhost` |
++--------------------------------------------------------------+
+2 rows in set (0.00 sec)
+//remove delete privilage of user 2.
+mysql> revoke delete on INVOICE.Customer from  nushri@'localhost';
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> show grants for nushri@'localhost';
++------------------------------------------------------------------------------+
+| Grants for nushri@localhost                                                  |
++------------------------------------------------------------------------------+
+| GRANT USAGE ON *.* TO `nushri`@`localhost`                                   |
+| GRANT UPDATE, DELETE ON `INVOICE`.* TO `nushri`@`localhost`                  |
+| GRANT SELECT, INSERT, UPDATE ON `INVOICE`.`Customer` TO `nushri`@`localhost` |
++------------------------------------------------------------------------------+
+3 rows in set (0.00 sec)
+
