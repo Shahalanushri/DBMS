@@ -1,0 +1,104 @@
+//SUB QUERY
+//List the customer names of invoice date 3rd february 2018
+mysql> select*from Invoice_master ;
++--------+---------+------------+
+| inv_id | cust_id | inv_date   |
++--------+---------+------------+
+|    101 |   10001 | 2021-11-26 |
+|    102 |   10002 | 2021-11-26 |
+|    103 |   10003 | 2022-02-11 |
+|    104 |   10004 | 2023-01-25 |
+|    105 |   10004 | 2021-08-10 |
+|    106 |   10005 | 2021-02-01 |
++--------+---------+------------+
+6 rows in set (0.00 sec)
+
+mysql> select *from Customer;
++-------+------+---------+------+---------+
+| id    | name | address | city | ph_no   |
++-------+------+---------+------+---------+
+| 10001 | Anu  | abc     | Tvm  | 9977666 |
+| 10002 | ammu | efg     | ekm  | 9975566 |
+| 10003 | Binu | adc     | dili | 9957666 |
+| 10005 | Amy  | kkdh    | wnd  | 9324489 |
++-------+------+---------+------+---------+
+4 rows in set (0.00 sec)
+
+mysql> select name from Customer where id in(select cust_id from Invoice_master where inv_date=20210201);
++------+
+| name |
++------+
+| Amy  |
++------+
+1 row in set (0.00 sec)
+//2.list the product name and price of each invoice item.
+mysql> select *from Product;
++-----+--------+-------+
+| pid | pname  | price |
++-----+--------+-------+
+|   1 | pen    |   224 |
+|   2 | pencil |   136 |
+|   3 | soap   |    72 |
+|   4 | paste  |   124 |
+|   5 | brush  |    62 |
++-----+--------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select *from Invoice_item;
++--------+------+----------+
+| inv_id | pid  | quantity |
++--------+------+----------+
+|    101 |    1 |        1 |
+|    102 |    2 |        2 |
+|    103 |    2 |        1 |
+|    104 |    3 |        2 |
++--------+------+----------+
+4 rows in set (0.00 sec)
+
+mysql> select pname,price from Product where pid in(select pid from Invoice_item);
++--------+-------+
+| pname  | price |
++--------+-------+
+| pen    |   224 |
+| pencil |   136 |
+| soap   |    72 |
++--------+-------+
+3 rows in set (0.00 sec)
+
+//3.list the product name only include their purchased quantity more than 3.
+mysql> select *from Product;
++-----+--------+-------+
+| pid | pname  | price |
++-----+--------+-------+
+|   1 | pen    |   224 |
+|   2 | pencil |   136 |
+|   3 | soap   |    72 |
+|   4 | paste  |   124 |
+|   5 | brush  |    62 |
++-----+--------+-------+
+5 rows in set (0.00 sec)
+
+mysql> insert into Invoice_item values(105,4,40);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select *from Invoice_item;
++--------+------+----------+
+| inv_id | pid  | quantity |
++--------+------+----------+
+|    101 |    1 |        1 |
+|    102 |    2 |        2 |
+|    103 |    2 |        1 |
+|    104 |    3 |        2 |
+|    105 |    4 |       40 |
++--------+------+----------+
+5 rows in set (0.00 sec)
+
+mysql> select pname from Product where pid in(select pid from Invoice_item where quantity>3);
++-------+
+| pname |
++-------+
+| paste |
++-------+
+1 row in set (0.00 sec)
+
+
