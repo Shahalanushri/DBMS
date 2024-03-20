@@ -1,0 +1,145 @@
+//1.4 Accessing database:(select,filtering using where,having,order by clauses)
+//1. List all customer deatails
+mysql> select*from Customer;
++-------+------+---------+------+---------+
+| id    | name | address | city | ph_no   |
++-------+------+---------+------+---------+
+| 10001 | Anu  | abc     | Tvm  | 9977666 |
+| 10002 | ammu | efg     | elkm | 9975566 |
+| 10003 | Binu | adc     | dili | 9957666 |
+| 10005 | Amy  | kkdh    | wnd  | 9324489 |
++-------+------+---------+------+---------+
+4 rows in set (0.00 sec)
+
+//2.List pname,price of all products
+mysql> select pname,price from Product;
++--------+-------+
+| pname  | price |
++--------+-------+
+| pen    |   224 |
+| pencil |   136 |
+| soap   |    72 |
+| paste  |   124 |
+| brush  |    62 |
++--------+-------+
+5 rows in set (0.00 sec)
+
+//3.List all invoice item,avoid duplicates
+mysql> select*from Invoice_item ;
++--------+------+----------+
+| inv_id | pid  | quantity |
++--------+------+----------+
+|    101 |    1 |        1 |
+|    102 |    2 |        2 |
+|    103 |    2 |        1 |
+|    104 |    3 |        2 |
++--------+------+----------+
+4 rows in set (0.00 sec)
+
+mysql> select pid from Invoice_item;
++------+
+| pid  |
++------+
+|    1 |
+|    2 |
+|    2 |
+|    3 |
++------+
+4 rows in set (0.00 sec)
+
+mysql> select distinct pid from Invoice_item;
++------+
+| pid  |
++------+
+|    1 |
+|    2 |
+|    3 |
++------+
+3 rows in set (0.00 sec)
+
+//4.List product price between 50rs and 150rs
+mysql> select price from Product where price between 50 and 150;
++-------+
+| price |
++-------+
+|   136 |
+|    72 |
+|   124 |
+|    62 |
++-------+
+4 rows in set (0.00 sec)
+
+//5.List the customer details who lives in 'ekm','tvm'.
+mysql> select *from Customer;
++-------+------+---------+------+---------+
+| id    | name | address | city | ph_no   |
++-------+------+---------+------+---------+
+| 10001 | Anu  | abc     | Tvm  | 9977666 |
+| 10002 | ammu | efg     | elkm | 9975566 |
+| 10003 | Binu | adc     | dili | 9957666 |
+| 10005 | Amy  | kkdh    | wnd  | 9324489 |
++-------+------+---------+------+---------+
+4 rows in set (0.00 sec)
+
+mysql> update Customer set city='ekm'where id=10002;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select *from Customer;
++-------+------+---------+------+---------+
+| id    | name | address | city | ph_no   |
++-------+------+---------+------+---------+
+| 10001 | Anu  | abc     | Tvm  | 9977666 |
+| 10002 | ammu | efg     | ekm  | 9975566 |
+| 10003 | Binu | adc     | dili | 9957666 |
+| 10005 | Amy  | kkdh    | wnd  | 9324489 |
++-------+------+---------+------+---------+
+4 rows in set (0.00 sec)
+
+mysql> select*from Customer where city in("ekm","Tvm");
++-------+------+---------+------+---------+
+| id    | name | address | city | ph_no   |
++-------+------+---------+------+---------+
+| 10001 | Anu  | abc     | Tvm  | 9977666 |
+| 10002 | ammu | efg     | ekm  | 9975566 |
++-------+------+---------+------+---------+
+2 rows in set (0.00 sec)
+
+//6.LIst the invoice details from first january 2021 to 31st march 2021
+mysql> insert into Invoice_master values(106,10005,20210201);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select*from Invoice_master ;
++--------+---------+------------+
+| inv_id | cust_id | inv_date   |
++--------+---------+------------+
+|    101 |   10001 | 2021-11-26 |
+|    102 |   10002 | 2021-11-26 |
+|    103 |   10003 | 2022-02-11 |
+|    104 |   10004 | 2023-01-25 |
+|    105 |   10004 | 2021-08-10 |
+|    106 |   10005 | 2021-02-01 |
++--------+---------+------------+
+6 rows in set (0.00 sec)
+
+mysql> select * from Invoice_master where inv_date between 20210101 and 20210331;
++--------+---------+------------+
+| inv_id | cust_id | inv_date   |
++--------+---------+------------+
+|    106 |   10005 | 2021-02-01 |
++--------+---------+------------+
+1 row in set (0.00 sec)
+
+//7.list customer details who not live in 'tvm'
+mysql> select *from Customer where city NOT IN ("Tvm");
++-------+------+---------+------+---------+
+| id    | name | address | city | ph_no   |
++-------+------+---------+------+---------+
+| 10002 | ammu | efg     | ekm  | 9975566 |
+| 10003 | Binu | adc     | dili | 9957666 |
+| 10005 | Amy  | kkdh    | wnd  | 9324489 |
++-------+------+---------+------+---------+
+3 rows in set (0.00 sec)
+
+
+
