@@ -1,0 +1,77 @@
+//1.7 join
+//1.List the product name and quantity of invoice items.
+
+mysql> select pname,quantity from Product  INNER JOIN Invoice_item on Product.pid=Invoice_item.pid;
++--------+----------+
+| pname  | quantity |
++--------+----------+
+| pen    |        1 |
+| pencil |        2 |
+| pencil |        1 |
+| soap   |        2 |
+| paste  |       40 |
++--------+----------+
+5 rows in set (0.00 sec)
+
+//2/.Display invoice details of the transaction dated '26-11-2021'.
+
+mysql> select * from Customer;
++-------+--------+---------+------+----------+
+| id    | name   | address | city | ph_no    |
++-------+--------+---------+------+----------+
+| 10001 | Anu    | abc     | Tvm  |  9977666 |
+| 10002 | ammu   | efg     | ekm  |  9975566 |
+| 10003 | Binu   | adc     | dili |  9957666 |
+| 10005 | Amy    | kkdh    | wnd  |  9324489 |
+| 10006 | Lumna  | ahh     | Tvm  | 99886666 |
+| 10007 | Hadiya | aff     | Tvm  |  9988066 |
++-------+--------+---------+------+----------+
+6 rows in set (0.00 sec)
+
+mysql> select * from Invoice_master;
++--------+---------+------------+
+| inv_id | cust_id | inv_date   |
++--------+---------+------------+
+|    101 |   10001 | 2021-11-26 |
+|    102 |   10002 | 2021-11-26 |
+|    103 |   10003 | 2022-02-11 |
+|    104 |   10004 | 2023-01-25 |
+|    105 |   10004 | 2021-08-10 |
+|    106 |   10005 | 2021-02-01 |
++--------+---------+------------+
+6 rows in set (0.00 sec)
+mysql> select *from Product;
++-----+--------+-------+
+| pid | pname  | price |
++-----+--------+-------+
+|   1 | pen    |   224 |
+|   2 | pencil |   136 |
+|   3 | soap   |    72 |
+|   4 | paste  |   124 |
+|   5 | brush  |    62 |
++-----+--------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select * from Invoice_item;
++--------+------+----------+
+| inv_id | pid  | quantity |
++--------+------+----------+
+|    101 |    1 |        1 |
+|    102 |    2 |        2 |
+|    103 |    2 |        1 |
+|    104 |    3 |        2 |
+|    105 |    4 |       40 |
++--------+------+----------+
+5 rows in set (0.00 sec)
+
+
+mysql> select * from Customer INNER JOIN Invoice_master on Customer.id=Invoice_master.cust_id INNER JOIN Invoice_item on Invoice_master.Inv_id=Invoice_item.inv_id INNER JOIN Product on Invoice_item.pid=Product.pid where inv_date=20211126;
++-------+------+---------+------+---------+--------+---------+------------+--------+------+----------+-----+--------+-------+
+| id    | name | address | city | ph_no   | inv_id | cust_id | inv_date   | inv_id | pid  | quantity | pid | pname  | price |
++-------+------+---------+------+---------+--------+---------+------------+--------+------+----------+-----+--------+-------+
+| 10001 | Anu  | abc     | Tvm  | 9977666 |    101 |   10001 | 2021-11-26 |    101 |    1 |        1 |   1 | pen    |   224 |
+| 10002 | ammu | efg     | ekm  | 9975566 |    102 |   10002 | 2021-11-26 |    102 |    2 |        2 |   2 | pencil |   136 |
++-------+------+---------+------+---------+--------+---------+------------+--------+------+----------+-----+--------+-------+
+2 rows in set (0.00 sec)
+
+
