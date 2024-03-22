@@ -1,0 +1,89 @@
+//1.6
+//1.List product nmae,price except soap on price order
+
+
+mysql> select * from Product;
++-----+--------+-------+
+| pid | pname  | price |
++-----+--------+-------+
+|   1 | pen    |   224 |
+|   2 | pencil |   136 |
+|   3 | soap   |    72 |
+|   4 | paste  |   124 |
+|   5 | brush  |    62 |
++-----+--------+-------+
+5 rows in set (0.00 sec)
+mysql> select pname,price from Product where pname!='soap' order by price;
++--------+-------+
+| pname  | price |
++--------+-------+
+| brush  |    62 |
+| paste  |   124 |
+| pencil |   136 |
+| pen    |   224 |
++--------+-------+
+4 rows in set (0.00 sec)
+
+//2.Find minimum,maximum and average price of products
+
+mysql> select min(price),max(price),avg(price) from Product;
++------------+------------+------------+
+| min(price) | max(price) | avg(price) |
++------------+------------+------------+
+|         62 |        224 |   123.6000 |
++------------+------------+------------+
+1 row in set (0.01 sec)
+
+//3.Find number of customers in each city.
+
+mysql> select * from Customer;
++-------+------+---------+------+---------+
+| id    | name | address | city | ph_no   |
++-------+------+---------+------+---------+
+| 10001 | Anu  | abc     | Tvm  | 9977666 |
+| 10002 | ammu | efg     | ekm  | 9975566 |
+| 10003 | Binu | adc     | dili | 9957666 |
+| 10005 | Amy  | kkdh    | wnd  | 9324489 |
++-------+------+---------+------+---------+
+4 rows in set (0.00 sec)
+
+mysql> select city,count(*) from Customer group by city;
++------+----------+
+| city | count(*) |
++------+----------+
+| Tvm  |        1 |
+| ekm  |        1 |
+| dili |        1 |
+| wnd  |        1 |
++------+----------+
+4 rows in set (0.01 sec)
+
+//4.Find number of customers in each city,only include city with more than 3 customers.
+
+mysql> insert into Customer values(10006,'Lumna','ahh','Tvm',99886666);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into Customer values(10007,'Hadiya','aff','Tvm',9988066);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from Customer;
++-------+--------+---------+------+----------+
+| id    | name   | address | city | ph_no    |
++-------+--------+---------+------+----------+
+| 10001 | Anu    | abc     | Tvm  |  9977666 |
+| 10002 | ammu   | efg     | ekm  |  9975566 |
+| 10003 | Binu   | adc     | dili |  9957666 |
+| 10005 | Amy    | kkdh    | wnd  |  9324489 |
+| 10006 | Lumna  | ahh     | Tvm  | 99886666 |
+| 10007 | Hadiya | aff     | Tvm  |  9988066 |
++-------+--------+---------+------+----------+
+6 rows in set (0.00 sec)
+
+mysql> select city,count(*) from Customer group by city having count(city)>2;
++------+----------+
+| city | count(*) |
++------+----------+
+| Tvm  |        3 |
++------+----------+
+1 row in set (0.00 sec)
+
