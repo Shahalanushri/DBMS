@@ -1,0 +1,30 @@
+//2.2 PL/SQL Fuctions
+1.Create a function to calculate price range(low,meadium,high)of each product.if price<=5 indicate as low,upto 50 indicate as meadium,and above as high. 
+
+mysql> DELIMITER //
+mysql> CREATE FUNCTION PRICEIND(PRICE INT) RETURNS VARCHAR(20)
+     -> DETERMINISTIC 
+     -> BEGIN 
+     -> DECLARE PRICE_IND VARCHAR(20); 
+     -> IF PRICE<=35 THEN SET PRICE_IND="LOW"; 
+     -> ELSEIF(PRICE>35 AND PRICE<=200) THEN SET PRICE_IND='MEDIUM'; 
+     -> ELSEIF PRICE>200 THEN SET PRICE_IND='HIGH';
+     -> END IF;
+     -> RETURN(PRICE_IND);
+     -> END
+     -> //
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select pid,pname,price,PRICEIND(price) from Product;//
++-----+--------+-------+-----------------+
+| pid | pname  | price | PRICEIND(price) |
++-----+--------+-------+-----------------+
+|   1 | pen    |   224 | HIGH            |
+|   2 | pencil |   136 | MEDIUM          |
+|   3 | soap   |    72 | MEDIUM          |
+|   4 | paste  |   124 | MEDIUM          |
+|   5 | brush  |    62 | MEDIUM          |
++-----+--------+-------+-----------------+
+5 rows in set (0.01 sec)
+
+
