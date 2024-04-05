@@ -1,0 +1,35 @@
+//2.3 TRIGGER
+1.Create a trigger to handle update to the customer table.
+mysql> create temporary table Cust(select*from Customer);
+    -> //
+Query OK, 6 rows affected (0.00 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> truncate Cust;
+    -> //
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> create trigger Cust_trig after update on Customer for each row begin insert into Cust set id=new.id,name=new.name,address=new.address,city=new.city,ph_no=new.ph_no;end//
+Query OK, 0 rows affected (0.01 sec)
+mysql> update Customer set city="idukki" where id=10003;
+    -> //
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+
+mysql> update Customer set ph_no=99567347 where id=10005;
+    -> //
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 1  Changed: 0  Warnings: 0
+
+mysql> SELECT * FROM Cust;
+    -> //
++-------+------+---------+--------+----------+
+| id    | name | address | city   | ph_no    |
++-------+------+---------+--------+----------+
+| 10003 | Binu | adc     | idukki |  9957666 |
+| 10005 | Amy  | kkdh    | wnd    | 99567347 |
++-------+------+---------+--------+----------+
+2 rows in set (0.01 sec)
+
+
