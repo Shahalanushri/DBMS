@@ -1,0 +1,136 @@
+//EXP3
+1.write a mongodb query  to create an invoice database and collections(customer,product) and its corresponding documents.
+
+test> use invoice
+switched to db invoice
+invoice> db.createCollection("customer")
+{ ok: 1 }
+invoice> db.createCollection("production")
+{ ok: 1 }
+invoice> show collections
+customer
+production
+
+invoice> db.customer.insertOne({"id":"10001","name":"Ammu","address":"abc","city":"kozhikode","ph_no":"99667789"})
+{
+  acknowledged: true,
+  insertedId: ObjectId('6613890af3842cde79ef634b')
+}
+invoice> db.customer.insertMany([{"id":"10002","name":"Ashi","address":"efg","city":"kozhikode"},{"id":"1003","name":"laala"}]
+... )
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('66138ad3f3842cde79ef634c'),
+    '1': ObjectId('66138ad3f3842cde79ef634d')
+  }
+}
+invoice> db.customer.insertOne({"id":"10004","name":"nushri","address":"hij","city":"kannoor"})
+{
+  acknowledged: true,
+  insertedId: ObjectId('66138bfff3842cde79ef634e')
+}
+invoice> db.customer.insertOne({"id":"10005","name":"anghu","address":"gfj","city":"idukki"})
+{
+  acknowledged: true,
+  insertedId: ObjectId('66138c2ef3842cde79ef634f')
+}
+
+2.write a mongodb query to find all documents from the collection customer
+invoice> db.customer.find()
+[
+  {
+    _id: ObjectId('6613890af3842cde79ef634b'),
+    id: '10001',
+    name: 'Ammu',
+    address: 'abc',
+    city: 'kozhikode',
+    ph_no: '99667789'
+  },
+  {
+    _id: ObjectId('66138ad3f3842cde79ef634c'),
+    id: '10002',
+    name: 'Ashi',
+    address: 'efg',
+    city: 'kozhikode'
+  },
+  {
+    _id: ObjectId('66138ad3f3842cde79ef634d'),
+    id: '1003',
+    name: 'laala'
+  },
+  {
+    _id: ObjectId('66138bfff3842cde79ef634e'),
+    id: '10004',
+    name: 'nushri',
+    address: 'hij',
+    city: 'kannoor'
+  },
+  {
+    _id: ObjectId('66138c2ef3842cde79ef634f'),
+    id: '10005',
+    name: 'anghu',
+    address: 'gfj',
+    city: 'idukki'
+  }
+]
+
+3.write a mongodb query to update the city in the collection customer.
+
+invoice> db.customer.update({"city":"kozhikode"},{$set:{"city":"eranakullam"}})
+DeprecationWarning: Collection.update() is deprecated. Use updateOne, updateMany, or bulkWrite.
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+invoice> db.customer.find()
+[
+  {
+    _id: ObjectId('6613890af3842cde79ef634b'),
+    id: '10001',
+    name: 'Ammu',
+    address: 'abc',
+    city: 'eranakullam',
+    ph_no: '99667789'
+  }
+  
+ 4.write a mongodb query to delete the fist matched document whose city is "kozhikode"
+
+invoice> db.customer.deleteOne({"city":"kozhikode"})
+{ acknowledged: true, deletedCount: 1 }
+invoice> db.customer.find()
+[
+  {
+    _id: ObjectId('6613890af3842cde79ef634b'),
+    id: '10001',
+    name: 'Ammu',
+    address: 'abc',
+    city: 'eranakullam',
+    ph_no: '99667789'
+  },
+  {
+    _id: ObjectId('66138ad3f3842cde79ef634d'),
+    id: '1003',
+    name: 'laala'
+  },
+  {
+    _id: ObjectId('66138bfff3842cde79ef634e'),
+    id: '10004',
+    name: 'nushri',
+    address: 'hij',
+    city: 'kannoor'
+  },
+  {
+    _id: ObjectId('66138c2ef3842cde79ef634f'),
+    id: '10005',
+    name: 'anghu',
+    address: 'gfj',
+    city: 'idukki'
+  }
+]
+
+
+
