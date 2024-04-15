@@ -1,0 +1,98 @@
+//EXP 5:AGGREGATE FUNCTIONS AND REGULAR EXPRESSIONS
+1.write a mongodb query to sort customer details in ascending order of their name.
+
+invoice> db.customer.find().sort({"name":1})
+[
+  {
+    _id: ObjectId('6613890af3842cde79ef634b'),
+    id: '10001',
+    name: 'Ammu',
+    address: 'abc',
+    city: 'eranakullam',
+    ph_no: '99667789'
+  },
+  {
+    _id: ObjectId('66138c2ef3842cde79ef634f'),
+    id: '10005',
+    name: 'anghu',
+    address: 'gfj',
+    city: 'tvm'
+  },
+  {
+    _id: ObjectId('6613920af3842cde79ef6351'),
+    id: '10007',
+    name: 'buboo',
+    address: 'hhi',
+    age: '34'
+  },
+  {
+    _id: ObjectId('66138ad3f3842cde79ef634d'),
+    id: '1003',
+    name: 'laala'
+  },
+  {
+    _id: ObjectId('661391c7f3842cde79ef6350'),
+    id: '10006',
+    name: 'michu',
+    address: 'llm',
+    age: '56'
+  },
+  {
+    _id: ObjectId('661ca871dfc007973def634b'),
+    id: '10006',
+    name: 'michu',
+    address: 'llm',
+    age: 50
+  },
+  {
+    _id: ObjectId('661ca87adfc007973def634c'),
+    id: '10006',
+    name: 'michu',
+    address: 'llm',
+    age: 30
+  },
+  {
+    _id: ObjectId('661ca88adfc007973def634d'),
+    id: '10008',
+    name: 'michu',
+    address: 'llm',
+    age: 23
+  },
+  {
+    _id: ObjectId('661ca8aadfc007973def634e'),
+    id: '10008',
+    name: 'michu',
+    address: 'llm',
+    age: 56
+  },
+  {
+    _id: ObjectId('66138bfff3842cde79ef634e'),
+    id: '10004',
+    name: 'nushri',
+    address: 'hij',
+    city: 'ekm'
+  }
+ ] 
+  
+ 2.write a mongodb query to count number of customers in ach city.
+ 
+ invoice> db.customer.aggregate([{$group:{_id:"$city",total:{$sum:1}}}])
+[
+  { _id: 'ekm', total: 1 },
+  { _id: 'tvm', total: 1 },
+  { _id: 'eranakullam', total: 1 },
+  { _id: null, total: 7 }
+]
+
+3.write a mongodb query to find minimum and maximum age in each city.
+
+invoice> db.customer.aggregate([{$group:{_id:"$city",max_age:{$max:"$age"},min_age:{$min:"$age"}}}])
+[
+  { _id: 'tvm', max_age: null, min_age: null },
+  { _id: null, max_age: '56', min_age: 23 },
+  { _id: 'eranakullam', max_age: null, min_age: null },
+  { _id: 'ekm', max_age: null, min_age: null }
+]
+
+
+
