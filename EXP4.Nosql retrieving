@@ -1,0 +1,110 @@
+//NoSql Retrieving Data
+
+1.write a mongodb query to display the customer documents having city'ekm','tvm'.
+
+invoice> db.customer.find({$or:[{"city":"tvm"},{"city":"ekm"}]}).pretty()
+[
+  {
+    _id: ObjectId('66138bfff3842cde79ef634e'),
+    id: '10004',
+    name: 'nushri',
+    address: 'hij',
+    city: 'ekm'
+  },
+  {
+    _id: ObjectId('66138c2ef3842cde79ef634f'),
+    id: '10005',
+    name: 'anghu',
+    address: 'gfj',
+    city: 'tvm'
+  }
+]
+
+2.write a mongodb query to display all customer documents who have age>50.
+
+invoice> db.customer.find({"age":{$lt:50}}).pretty()
+[
+  {
+    _id: ObjectId('661ca87adfc007973def634c'),
+    id: '10006',
+    name: 'michu',
+    address: 'llm',
+    age: 30
+  },
+  {
+    _id: ObjectId('661ca88adfc007973def634d'),
+    id: '10008',
+    name: 'michu',
+    address: 'llm',
+    age: 23
+  }
+]
+
+3.write a maongodb query to find customer documents who not live in 'tvm'.
+
+invoice> db.customer.find({"city":{$ne:'tvm'}}).pretty()
+[
+  {
+    _id: ObjectId('6613890af3842cde79ef634b'),
+    id: '10001',
+    name: 'Ammu',
+    address: 'abc',
+    city: 'eranakullam',
+    ph_no: '99667789'
+  },
+  {
+    _id: ObjectId('66138ad3f3842cde79ef634d'),
+    id: '1003',
+    name: 'laala'
+  },
+  {
+    _id: ObjectId('66138bfff3842cde79ef634e'),
+    id: '10004',
+    name: 'nushri',
+    address: 'hij',
+    city: 'ekm'
+  },
+  {
+    _id: ObjectId('661391c7f3842cde79ef6350'),
+    id: '10006',
+    name: 'michu',
+    address: 'llm',
+    age: '56'
+  },
+  {
+    _id: ObjectId('6613920af3842cde79ef6351'),
+    id: '10007',
+    name: 'buboo',
+    address: 'hhi',
+    age: '34'
+  },
+  {
+    _id: ObjectId('661ca871dfc007973def634b'),
+    id: '10006',
+    name: 'michu',
+    address: 'llm',
+    age: 50
+  },
+  {
+    _id: ObjectId('661ca87adfc007973def634c'),
+    id: '10006',
+    name: 'michu',
+    address: 'llm',
+    age: 30
+  },
+  {
+    _id: ObjectId('661ca88adfc007973def634d'),
+    id: '10008',
+    name: 'michu',
+    address: 'llm',
+    age: 23
+  },
+  {
+    _id: ObjectId('661ca8aadfc007973def634e'),
+    id: '10008',
+    name: 'michu',
+    address: 'llm',
+    age: 56
+  }
+]
+
